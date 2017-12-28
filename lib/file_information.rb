@@ -58,6 +58,10 @@ module FormatParser
     # as an Integer
     attr_accessor :media_duration_frames
 
+    # If a parser has recovered any interesting information that it wants
+    # to share with the caller it can provide that information via this attribute
+    attr_accessor :intrinsics
+
     # Only permits assignments via defined accessors
     def initialize(**attributes)
       attributes.map { |(k, v)| public_send("#{k}=", v) }
@@ -65,6 +69,14 @@ module FormatParser
 
     def self.image(**kwargs)
       new(file_nature: :image, **kwargs)
+    end
+
+    def self.audio(**kwargs)
+      new(file_nature: :audio, **kwargs)
+    end
+
+    def self.video(**kwargs)
+      new(file_nature: :video, **kwargs)
     end
   end
 end
